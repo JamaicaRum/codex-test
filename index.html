@@ -1,0 +1,509 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Инна Матиссон — Психолог</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@500;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --black: #0b0b0c;
+        --red: #e52727;
+        --soft: #f6f4f1;
+        --white: #ffffff;
+        --gray: #6b6762;
+        --line: #dbd5cf;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        font-family: Inter, sans-serif;
+        color: var(--black);
+        background: var(--soft);
+      }
+
+      .container {
+        width: min(1200px, calc(100% - 48px));
+        margin: 0 auto;
+      }
+
+      header {
+        position: sticky;
+        top: 16px;
+        z-index: 20;
+      }
+
+      .nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        background: color-mix(in srgb, var(--white) 84%, transparent);
+        border: 1px solid color-mix(in srgb, var(--line) 80%, transparent);
+        backdrop-filter: blur(8px);
+        border-radius: 999px;
+        padding: 10px 20px;
+      }
+
+      .brand,
+      nav a {
+        font-family: Manrope, sans-serif;
+        text-decoration: none;
+        font-size: 14px;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: var(--black);
+        position: relative;
+      }
+
+      nav {
+        display: flex;
+        gap: 24px;
+      }
+
+      nav a::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -5px;
+        width: 100%;
+        height: 2px;
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.25s ease;
+        background: var(--red);
+      }
+
+      nav a:hover::after {
+        transform: scaleX(1);
+      }
+
+      section {
+        padding: 86px 0;
+      }
+
+      .hero {
+        padding-top: 48px;
+      }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: 48px;
+        align-items: center;
+      }
+
+      .eyebrow {
+        font-family: Manrope, sans-serif;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--gray);
+        margin-bottom: 12px;
+        font-size: 12px;
+      }
+
+      h1,
+      h2,
+      h3 {
+        font-family: Sora, sans-serif;
+        margin: 0;
+      }
+
+      h1 {
+        font-size: clamp(2rem, 5.2vw, 4.3rem);
+        line-height: 1.05;
+        margin-bottom: 26px;
+        max-width: 15ch;
+      }
+
+      .hero p {
+        font-size: clamp(1rem, 1.5vw, 1.2rem);
+        line-height: 1.65;
+        max-width: 65ch;
+      }
+
+      .hero-image {
+        aspect-ratio: 4 / 5;
+        border-radius: 24px;
+        overflow: hidden;
+        position: relative;
+        box-shadow: 0 24px 48px rgba(8, 8, 10, 0.25);
+      }
+
+      .hero-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.65s ease;
+      }
+
+      .hero-image:hover img {
+        transform: scale(1.04);
+      }
+
+      .hero-image::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top, rgba(11, 11, 12, 0.24), transparent 60%);
+      }
+
+      .split {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+      }
+
+      .panel {
+        background: var(--white);
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        padding: 42px;
+        min-height: 320px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        position: relative;
+        overflow: hidden;
+        transition: transform 0.35s ease, box-shadow 0.35s ease;
+      }
+
+      .panel::before {
+        content: "";
+        position: absolute;
+        width: 280px;
+        height: 280px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(229, 39, 39, 0.15), transparent 65%);
+        right: -70px;
+        bottom: -120px;
+        transition: transform 0.5s ease;
+      }
+
+      .panel:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 18px 40px rgba(20, 20, 20, 0.12);
+      }
+
+      .panel:hover::before {
+        transform: scale(1.2);
+      }
+
+      .panel h3 {
+        font-size: clamp(1.5rem, 2.5vw, 2rem);
+        margin-bottom: 16px;
+      }
+
+      .panel p {
+        line-height: 1.7;
+        color: var(--gray);
+        max-width: 34ch;
+      }
+
+      .btn {
+        border: 0;
+        background: var(--red);
+        color: var(--white);
+        font-family: Manrope, sans-serif;
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        border-radius: 999px;
+        width: fit-content;
+        padding: 12px 20px;
+        font-size: 12px;
+        text-decoration: none;
+        transition: background 0.25s ease, transform 0.25s ease;
+      }
+
+      .btn:hover {
+        background: #c62020;
+        transform: translateY(-2px);
+      }
+
+      .block-title {
+        font-size: clamp(1.6rem, 3.1vw, 2.6rem);
+        margin-bottom: 26px;
+      }
+
+      .manifesto {
+        display: grid;
+        gap: 14px;
+      }
+
+      .manifesto-item {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 16px;
+        align-items: baseline;
+        border-bottom: 1px solid var(--line);
+        padding-bottom: 16px;
+      }
+
+      .manifesto-item span {
+        font-family: Manrope, sans-serif;
+        color: var(--red);
+        font-size: 13px;
+      }
+
+      .manifesto-item h3 {
+        font-size: clamp(1.1rem, 2.2vw, 1.65rem);
+        font-weight: 500;
+      }
+
+      .about-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+      }
+
+      .card {
+        background: var(--white);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 28px;
+      }
+
+      .card h4 {
+        margin: 0 0 14px;
+        font-family: Sora, sans-serif;
+      }
+
+      .lead {
+        font-size: 1.2rem;
+        max-width: 52ch;
+      }
+
+      .media-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+      }
+
+      .media-card {
+        background: var(--white);
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        padding: 22px;
+        min-height: 160px;
+        transition: box-shadow 0.3s ease, transform 0.3s ease;
+      }
+
+      .media-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 30px rgba(20, 20, 20, 0.08);
+      }
+
+      .meta {
+        color: var(--gray);
+        font-family: Manrope, sans-serif;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        font-size: 12px;
+        margin-bottom: 16px;
+      }
+
+      .timeline {
+        border-left: 2px solid var(--line);
+        padding-left: 24px;
+        display: grid;
+        gap: 18px;
+      }
+
+      .timeline-item strong {
+        color: var(--red);
+        margin-right: 8px;
+        font-family: Manrope, sans-serif;
+      }
+
+      footer {
+        border-top: 1px solid var(--line);
+        padding: 34px 0 42px;
+      }
+
+      .contacts a {
+        color: var(--black);
+        text-decoration: none;
+        border-bottom: 1px solid transparent;
+        transition: border-color 0.25s ease, color 0.25s ease;
+      }
+
+      .contacts a:hover {
+        color: var(--red);
+        border-color: var(--red);
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(22px);
+        transition: opacity 0.7s ease, transform 0.7s ease;
+      }
+
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      @media (max-width: 940px) {
+        .hero-grid,
+        .split,
+        .about-grid,
+        .media-grid {
+          grid-template-columns: 1fr;
+        }
+
+        nav {
+          display: none;
+        }
+
+        section {
+          padding: 66px 0;
+        }
+
+        .panel {
+          min-height: 280px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="container">
+      <div class="nav">
+        <a href="#top" class="brand">Инна Матиссон</a>
+        <nav>
+          <a href="#approach">О подходе</a>
+          <a href="#articles">Материалы</a>
+          <a href="#events">Мероприятия</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero container reveal">
+        <div class="hero-grid">
+          <div>
+            <div class="eyebrow">Инна Матиссон</div>
+            <h1>Кризисы в отношениях после 35 — это не про характер и не про чувства. Это следствие сломанной системы ролей.</h1>
+            <p>
+              Инна Матиссон<br />
+              Психолог. Работает с кризисами мужской и женской роли в зрелых отношениях.
+            </p>
+          </div>
+          <figure class="hero-image">
+            <img src="https://images.unsplash.com/photo-1604503468506-a8da13d82791?auto=format&fit=crop&w=900&q=80" alt="Портрет Инны Матиссон" />
+          </figure>
+        </div>
+      </section>
+
+      <section class="container reveal">
+        <div class="split">
+          <article class="panel">
+            <div>
+              <h3>Мужчинам</h3>
+              <p>Ты состоялся в жизни: ответственность, решения, деньги. Но в отношениях тебя перестали уважать, а твоя позиция размыта.</p>
+            </div>
+            <a class="btn" href="#contacts">Перейти →</a>
+          </article>
+          <article class="panel">
+            <div>
+              <h3>Женщинам</h3>
+              <p>Ты сильная и самостоятельная. Но рядом либо слабый мужчина, либо постоянное напряжение и борьба.</p>
+            </div>
+            <a class="btn" href="#contacts">Перейти →</a>
+          </article>
+        </div>
+      </section>
+
+      <section id="approach" class="container reveal">
+        <h2 class="block-title">Подход</h2>
+        <div class="manifesto">
+          <div class="manifesto-item"><span>01</span><h3>Отношения — это система, а не эмоции</h3></div>
+          <div class="manifesto-item"><span>02</span><h3>Роль и поведение важнее намерений</h3></div>
+          <div class="manifesto-item"><span>03</span><h3>Советы не работают без смены конструкции</h3></div>
+          <div class="manifesto-item"><span>04</span><h3>Здесь не ищут виноватых — разбирают устройство</h3></div>
+          <div class="manifesto-item"><span>05</span><h3>Чувства важны, но они не чинят сломанные роли</h3></div>
+        </div>
+      </section>
+
+      <section class="container reveal">
+        <h2 class="block-title">Об авторе</h2>
+        <p class="lead">Инна Матиссон — практикующий психолог с аналитическим подходом к отношениям.<br />Ты не слабый — ты просто не понимаешь, как это устроено.</p>
+        <div class="about-grid">
+          <div class="card">
+            <h4>Работает с конкретными ситуациями</h4>
+            <p>Кризисы брака и разводы<br />Утрата роли и уважения<br />Проблемы границ и поведения</p>
+          </div>
+          <div class="card">
+            <h4>Бэкграунд</h4>
+            <p>Опыт юриста и следователя<br />Фокус на причинах, а не симптомах</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="articles" class="container reveal">
+        <h2 class="block-title">Статьи</h2>
+        <div class="meta">03 материала</div>
+        <div class="media-grid">
+          <article class="media-card">01 — Женщина на продажу: цена и ценность</article>
+          <article class="media-card">02 — Как женщины на самом деле видят мужчину</article>
+          <article class="media-card">03 — Замужняя любовница: практическая инструкция</article>
+        </div>
+      </section>
+
+      <section class="container reveal">
+        <h2 class="block-title">Видео</h2>
+        <div class="meta">03 материала</div>
+        <div class="media-grid">
+          <article class="media-card">01 — Женское уважение к мужчине: откуда оно берётся</article>
+          <article class="media-card">02 — Почему «хороший мужчина» перестаёт быть мужчиной</article>
+          <article class="media-card">03 — Женский ТОП-клуб: как и зачем он работает</article>
+        </div>
+      </section>
+
+      <section id="events" class="container reveal">
+        <h2 class="block-title">Мероприятия</h2>
+        <div class="meta">03 события</div>
+        <div class="timeline">
+          <div class="timeline-item"><strong>Прошло</strong>Офлайн-семинар Инны Матиссон — Москва</div>
+          <div class="timeline-item"><strong>Прошло</strong>Выезд ТОП-клуба — Казань</div>
+          <div class="timeline-item"><strong>Анонс</strong>Закрытая встреча участников — Санкт-Петербург</div>
+        </div>
+      </section>
+
+      <section id="contacts" class="container reveal contacts">
+        <h2 class="block-title">Контакты</h2>
+        <p>Инна Матиссон в социальных сетях</p>
+        <p>
+          <a href="#">Telegram</a> · <a href="#">YouTube</a> · <a href="#">VK</a> · <a href="#">Дзен</a> · <a href="#">Rutube</a> · <a href="#">TikTok</a> · <a href="#">vc.ru</a>
+        </p>
+        <p>Для предложений и сотрудничества</p>
+        <p><a href="mailto:email@email.com">email@email.com</a></p>
+      </section>
+    </main>
+
+    <footer class="container">© 2026 Инна Матиссон</footer>
+
+    <script>
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) entry.target.classList.add("visible");
+          });
+        },
+        { threshold: 0.12 }
+      );
+
+      document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+    </script>
+  </body>
+</html>
