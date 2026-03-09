@@ -4,506 +4,473 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Инна Матиссон — Психолог</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@500;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
     <style>
       :root {
         --black: #0b0b0c;
         --red: #e52727;
-        --soft: #f6f4f1;
-        --white: #ffffff;
-        --gray: #6b6762;
-        --line: #dbd5cf;
+        --paper: #f6f4f1;
+        --charcoal: #1a1a1a;
+        --muted: #6b6762;
+        --line: #d7d2cb;
       }
 
-      * {
-        box-sizing: border-box;
-      }
-
-      html {
-        scroll-behavior: smooth;
-      }
-
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
       body {
         margin: 0;
         font-family: Inter, sans-serif;
-        color: var(--black);
-        background: var(--soft);
+        color: var(--charcoal);
+        background: var(--paper);
+        line-height: 1.6;
       }
 
-      .container {
-        width: min(1200px, calc(100% - 48px));
-        margin: 0 auto;
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image: radial-gradient(rgba(0,0,0,.04) 0.7px, transparent 0.7px);
+        background-size: 3px 3px;
+        opacity: .35;
+        pointer-events: none;
+        z-index: -1;
       }
 
-      header {
-        position: sticky;
-        top: 16px;
-        z-index: 20;
+      .container { width: min(1240px, calc(100% - 56px)); margin: 0 auto; }
+      .section { padding: 98px 0; }
+      .label { font: 700 12px/1 Manrope, sans-serif; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+
+      .site-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 30;
+        transition: background .35s ease, border-color .35s ease;
+        border-bottom: 1px solid transparent;
       }
 
-      .nav {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 12px;
-        background: color-mix(in srgb, var(--white) 84%, transparent);
-        border: 1px solid color-mix(in srgb, var(--line) 80%, transparent);
-        backdrop-filter: blur(8px);
-        border-radius: 999px;
-        padding: 10px 20px;
+      .site-header.scrolled {
+        background: color-mix(in srgb, var(--paper) 94%, transparent);
+        border-bottom-color: color-mix(in srgb, var(--line) 90%, transparent);
+        backdrop-filter: blur(5px);
       }
 
-      .brand,
+      .nav-wrap { height: 74px; display: flex; align-items: center; justify-content: space-between; }
+      .brand { text-decoration: none; color: var(--black); font: 700 14px/1 Manrope, sans-serif; letter-spacing: .12em; text-transform: uppercase; }
+      nav { display: flex; gap: 30px; }
       nav a {
-        font-family: Manrope, sans-serif;
         text-decoration: none;
-        font-size: 14px;
-        letter-spacing: 0.04em;
-        text-transform: uppercase;
         color: var(--black);
+        font: 600 12px/1 Manrope, sans-serif;
+        letter-spacing: .1em;
+        text-transform: uppercase;
         position: relative;
       }
-
-      nav {
-        display: flex;
-        gap: 24px;
-      }
-
       nav a::after {
         content: "";
         position: absolute;
         left: 0;
-        bottom: -5px;
-        width: 100%;
+        right: 0;
+        bottom: -8px;
         height: 2px;
         transform: scaleX(0);
         transform-origin: left;
-        transition: transform 0.25s ease;
         background: var(--red);
+        transition: transform .25s ease;
       }
-
-      nav a:hover::after {
-        transform: scaleX(1);
-      }
-
-      section {
-        padding: 86px 0;
-      }
+      nav a:hover::after { transform: scaleX(1); }
 
       .hero {
-        padding-top: 48px;
-      }
-
-      .hero-grid {
-        display: grid;
-        grid-template-columns: 1.15fr 0.85fr;
-        gap: 48px;
+        padding-top: 130px;
+        min-height: 96vh;
+        display: flex;
         align-items: center;
       }
-
-      .eyebrow {
-        font-family: Manrope, sans-serif;
-        text-transform: uppercase;
-        letter-spacing: 0.12em;
-        color: var(--gray);
-        margin-bottom: 12px;
-        font-size: 12px;
+      .hero-grid {
+        display: grid;
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+        gap: 26px;
+        align-items: center;
       }
+      .hero-copy { grid-column: span 7; }
+      .hero-image-wrap { grid-column: span 5; }
 
-      h1,
-      h2,
-      h3 {
-        font-family: Sora, sans-serif;
-        margin: 0;
-      }
-
+      h1, h2, h3, h4 { font-family: Sora, sans-serif; margin: 0; color: var(--black); }
       h1 {
-        font-size: clamp(2rem, 5.2vw, 4.3rem);
-        line-height: 1.05;
-        margin-bottom: 26px;
-        max-width: 15ch;
+        margin-top: 20px;
+        font-size: clamp(2.2rem, 5.3vw, 4.7rem);
+        line-height: 1.03;
+        letter-spacing: -0.02em;
+      }
+      .hero-description {
+        margin-top: 26px;
+        max-width: 48ch;
+        font-size: clamp(1rem, 1.35vw, 1.16rem);
       }
 
-      .hero p {
-        font-size: clamp(1rem, 1.5vw, 1.2rem);
-        line-height: 1.65;
-        max-width: 65ch;
+      .mask-reveal { overflow: hidden; }
+      .mask-reveal > span {
+        display: inline-block;
+        transform: translateY(102%);
+        animation: reveal-up .95s cubic-bezier(.22,.9,.31,.99) .15s forwards;
+      }
+
+      .fade-up {
+        opacity: 0;
+        transform: translateY(24px);
+        animation: fade-up .8s ease .5s forwards;
       }
 
       .hero-image {
-        aspect-ratio: 4 / 5;
-        border-radius: 24px;
+        border-radius: 28px;
         overflow: hidden;
-        position: relative;
-        box-shadow: 0 24px 48px rgba(8, 8, 10, 0.25);
+        box-shadow: 0 26px 56px rgba(11, 11, 12, .24);
+        aspect-ratio: 4 / 5;
       }
-
       .hero-image img {
         width: 100%;
         height: 100%;
         object-fit: cover;
-        display: block;
-        transition: transform 0.65s ease;
+        transform: scale(1.08);
+        animation: image-in 1.1s ease .35s forwards;
       }
 
-      .hero-image:hover img {
-        transform: scale(1.04);
+      .decision { padding-top: 30px; }
+      .split-gateway {
+        display: flex;
+        gap: 14px;
+        min-height: 420px;
       }
-
-      .hero-image::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(to top, rgba(11, 11, 12, 0.24), transparent 60%);
-      }
-
-      .split {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 18px;
-      }
-
-      .panel {
-        background: var(--white);
+      .gateway-panel {
+        flex: 1;
+        padding: 40px;
         border: 1px solid var(--line);
         border-radius: 24px;
-        padding: 42px;
-        min-height: 320px;
+        background: linear-gradient(150deg, #f7f5f3, #f0ece7);
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+        transition: flex .45s cubic-bezier(.22,.9,.31,.99), transform .35s ease, filter .35s ease;
         position: relative;
         overflow: hidden;
-        transition: transform 0.35s ease, box-shadow 0.35s ease;
       }
-
-      .panel::before {
+      .gateway-panel::after {
         content: "";
         position: absolute;
+        right: -80px;
+        bottom: -100px;
         width: 280px;
         height: 280px;
-        border-radius: 50%;
-        background: radial-gradient(circle, rgba(229, 39, 39, 0.15), transparent 65%);
-        right: -70px;
-        bottom: -120px;
-        transition: transform 0.5s ease;
+        background: radial-gradient(circle, rgba(229,39,39,.18), transparent 68%);
       }
+      .split-gateway:hover .gateway-panel { flex: .9; filter: grayscale(.12); }
+      .split-gateway .gateway-panel:hover { flex: 1.3; filter: grayscale(0); transform: translateY(-4px); }
 
-      .panel:hover {
-        transform: translateY(-6px);
-        box-shadow: 0 18px 40px rgba(20, 20, 20, 0.12);
-      }
+      .gateway-panel h3 { font-size: clamp(1.8rem, 2.7vw, 2.4rem); margin-bottom: 12px; }
+      .gateway-panel p { max-width: 34ch; color: var(--muted); font-size: 1.02rem; }
 
-      .panel:hover::before {
-        transform: scale(1.2);
-      }
-
-      .panel h3 {
-        font-size: clamp(1.5rem, 2.5vw, 2rem);
-        margin-bottom: 16px;
-      }
-
-      .panel p {
-        line-height: 1.7;
-        color: var(--gray);
-        max-width: 34ch;
-      }
-
-      .btn {
-        border: 0;
-        background: var(--red);
-        color: var(--white);
-        font-family: Manrope, sans-serif;
-        text-transform: uppercase;
-        letter-spacing: 0.07em;
-        border-radius: 999px;
+      .cta {
         width: fit-content;
-        padding: 12px 20px;
-        font-size: 12px;
         text-decoration: none;
-        transition: background 0.25s ease, transform 0.25s ease;
+        margin-top: 22px;
+        background: var(--red);
+        color: #fff;
+        border-radius: 999px;
+        padding: 12px 20px;
+        font: 700 12px/1 Manrope, sans-serif;
+        letter-spacing: .1em;
+        text-transform: uppercase;
+        transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
+      }
+      .gateway-panel:hover .cta { box-shadow: 0 12px 24px rgba(229,39,39,.28); transform: translateY(-2px); }
+
+      .section-title {
+        font-size: clamp(1.8rem, 3.2vw, 3rem);
+        letter-spacing: -0.015em;
+        margin-bottom: 30px;
       }
 
-      .btn:hover {
-        background: #c62020;
-        transform: translateY(-2px);
-      }
-
-      .block-title {
-        font-size: clamp(1.6rem, 3.1vw, 2.6rem);
-        margin-bottom: 26px;
-      }
-
-      .manifesto {
+      .manifesto { display: grid; gap: 20px; }
+      .manifesto-row {
         display: grid;
-        gap: 14px;
-      }
-
-      .manifesto-item {
-        display: grid;
-        grid-template-columns: auto 1fr;
-        gap: 16px;
-        align-items: baseline;
+        grid-template-columns: 70px 1fr;
+        padding-bottom: 18px;
         border-bottom: 1px solid var(--line);
-        padding-bottom: 16px;
+        align-items: baseline;
       }
+      .manifesto-row span { font: 700 14px/1 Manrope, sans-serif; color: var(--red); letter-spacing: .08em; }
+      .manifesto-row h3 { font-size: clamp(1.15rem, 2vw, 1.8rem); font-weight: 500; }
 
-      .manifesto-item span {
-        font-family: Manrope, sans-serif;
-        color: var(--red);
-        font-size: 13px;
+      .author-grid {
+        display: grid;
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+        gap: 28px;
+        align-items: start;
       }
+      .author-visual { grid-column: span 5; }
+      .author-copy { grid-column: span 7; }
+      .author-visual .hero-image { aspect-ratio: 3.6/4.4; }
 
-      .manifesto-item h3 {
-        font-size: clamp(1.1rem, 2.2vw, 1.65rem);
-        font-weight: 500;
-      }
-
-      .about-grid {
+      .lead { font-size: clamp(1.06rem, 1.6vw, 1.24rem); max-width: 58ch; }
+      .subcards {
+        margin-top: 26px;
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 24px;
-      }
-
-      .card {
-        background: var(--white);
-        border: 1px solid var(--line);
-        border-radius: 18px;
-        padding: 28px;
-      }
-
-      .card h4 {
-        margin: 0 0 14px;
-        font-family: Sora, sans-serif;
-      }
-
-      .lead {
-        font-size: 1.2rem;
-        max-width: 52ch;
-      }
-
-      .media-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
         gap: 16px;
       }
-
-      .media-card {
-        background: var(--white);
+      .soft-card {
+        background: #fbf9f6;
         border: 1px solid var(--line);
-        border-radius: 16px;
+        border-radius: 18px;
         padding: 22px;
-        min-height: 160px;
-        transition: box-shadow 0.3s ease, transform 0.3s ease;
+        box-shadow: 0 10px 20px rgba(0,0,0,.05);
       }
+      .soft-card h4 { font-size: 1rem; margin-bottom: 10px; }
+      .soft-card ul { margin: 0; padding-left: 18px; color: var(--muted); }
 
-      .media-card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 12px 30px rgba(20, 20, 20, 0.08);
+      .grid3 { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 18px; }
+      .editorial-card {
+        background: #efebe6;
+        border-radius: 16px;
+        border: 1px solid var(--line);
+        padding: 22px;
+        min-height: 190px;
+        transition: transform .28s ease, box-shadow .28s ease, background .28s ease;
       }
-
-      .meta {
-        color: var(--gray);
-        font-family: Manrope, sans-serif;
-        letter-spacing: 0.05em;
-        text-transform: uppercase;
-        font-size: 12px;
-        margin-bottom: 16px;
+      .editorial-card:hover { transform: translateY(-5px); box-shadow: 0 12px 26px rgba(0,0,0,.08); background: #f7f4ef; }
+      .idx { font: 700 12px/1 Manrope, sans-serif; color: var(--red); letter-spacing: .08em; text-transform: uppercase; }
+      .editorial-card h3 {
+        margin-top: 16px;
+        font-size: 1.17rem;
+        text-decoration: underline;
+        text-decoration-color: transparent;
+        text-underline-offset: 4px;
+        transition: text-decoration-color .24s ease;
       }
+      .editorial-card:hover h3 { text-decoration-color: var(--red); }
 
-      .timeline {
-        border-left: 2px solid var(--line);
-        padding-left: 24px;
+      .video-card { position: relative; overflow: hidden; }
+      .thumb {
+        height: 120px;
+        border-radius: 10px;
+        background: linear-gradient(145deg, #d8d2cb, #beb7af);
+        margin-top: 12px;
+        position: relative;
+      }
+      .play {
+        position: absolute;
+        right: 12px;
+        bottom: 12px;
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        background: var(--red);
         display: grid;
-        gap: 18px;
+        place-items: center;
+        color: #fff;
+        opacity: 0;
+        transform: translateY(8px);
+        transition: all .25s ease;
+        font-size: 12px;
       }
+      .video-card:hover .play { opacity: 1; transform: translateY(0); }
 
-      .timeline-item strong {
-        color: var(--red);
-        margin-right: 8px;
-        font-family: Manrope, sans-serif;
-      }
+      .events { border-left: 2px solid var(--line); padding-left: 26px; display: grid; gap: 14px; }
+      .event-row { display: grid; grid-template-columns: 96px 1fr; gap: 14px; align-items: baseline; padding: 5px 0; }
+      .tag { font: 700 11px/1.2 Manrope, sans-serif; letter-spacing: .08em; text-transform: uppercase; color: var(--red); }
 
       footer {
+        margin-top: 28px;
         border-top: 1px solid var(--line);
-        padding: 34px 0 42px;
+        padding: 38px 0 44px;
       }
-
-      .contacts a {
-        color: var(--black);
+      .socials { display: flex; flex-wrap: wrap; gap: 14px 18px; margin: 10px 0 18px; }
+      .socials a, .email a {
         text-decoration: none;
+        color: var(--black);
         border-bottom: 1px solid transparent;
-        transition: border-color 0.25s ease, color 0.25s ease;
+        transition: color .24s ease, border-color .24s ease;
+      }
+      .socials a:hover, .email a:hover { color: var(--red); border-color: var(--red); }
+      .copyright { margin-top: 24px; color: var(--muted); font-size: .95rem; }
+
+      .reveal { opacity: 0; transform: translateY(24px); transition: .7s ease; }
+      .reveal.visible { opacity: 1; transform: translateY(0); }
+
+      @media (max-width: 1024px) {
+        .hero-copy, .hero-image-wrap, .author-visual, .author-copy { grid-column: span 12; }
+        .hero { min-height: auto; }
+      }
+      @media (max-width: 900px) {
+        .section { padding: 74px 0; }
+        nav { display: none; }
+        .split-gateway { flex-direction: column; min-height: auto; }
+        .split-gateway:hover .gateway-panel,
+        .split-gateway .gateway-panel:hover { flex: 1; }
+        .subcards, .grid3 { grid-template-columns: 1fr; }
+        .event-row { grid-template-columns: 1fr; gap: 8px; }
       }
 
-      .contacts a:hover {
-        color: var(--red);
-        border-color: var(--red);
-      }
-
-      .reveal {
-        opacity: 0;
-        transform: translateY(22px);
-        transition: opacity 0.7s ease, transform 0.7s ease;
-      }
-
-      .reveal.visible {
-        opacity: 1;
-        transform: translateY(0);
-      }
-
-      @media (max-width: 940px) {
-        .hero-grid,
-        .split,
-        .about-grid,
-        .media-grid {
-          grid-template-columns: 1fr;
-        }
-
-        nav {
-          display: none;
-        }
-
-        section {
-          padding: 66px 0;
-        }
-
-        .panel {
-          min-height: 280px;
-        }
-      }
+      @keyframes reveal-up { to { transform: translateY(0); } }
+      @keyframes fade-up { to { opacity: 1; transform: translateY(0); } }
+      @keyframes image-in { to { transform: scale(1); } }
     </style>
   </head>
   <body>
-    <header class="container">
-      <div class="nav">
-        <a href="#top" class="brand">Инна Матиссон</a>
+    <header class="site-header" id="header">
+      <div class="container nav-wrap">
+        <a href="#top" class="brand">ИННА МАТИССОН</a>
         <nav>
-          <a href="#approach">О подходе</a>
-          <a href="#articles">Материалы</a>
-          <a href="#events">Мероприятия</a>
+          <a href="#approach">О ПОДХОДЕ</a>
+          <a href="#materials">МАТЕРИАЛЫ</a>
+          <a href="#events">МЕРОПРИЯТИЯ</a>
         </nav>
       </div>
     </header>
 
     <main id="top">
-      <section class="hero container reveal">
+      <section class="hero container section">
         <div class="hero-grid">
-          <div>
-            <div class="eyebrow">Инна Матиссон</div>
-            <h1>Кризисы в отношениях после 35 — это не про характер и не про чувства. Это следствие сломанной системы ролей.</h1>
-            <p>
+          <div class="hero-copy">
+            <div class="label">Инна Матиссон</div>
+            <h1 class="mask-reveal"><span>Кризисы в отношениях после 35 — это не про характер и не про чувства. Это следствие сломанной системы ролей.</span></h1>
+            <p class="hero-description fade-up">
               Инна Матиссон<br />
               Психолог. Работает с кризисами мужской и женской роли в зрелых отношениях.
             </p>
           </div>
-          <figure class="hero-image">
-            <img src="https://images.unsplash.com/photo-1604503468506-a8da13d82791?auto=format&fit=crop&w=900&q=80" alt="Портрет Инны Матиссон" />
-          </figure>
+          <div class="hero-image-wrap">
+            <figure class="hero-image">
+              <img src="https://images.unsplash.com/photo-1616683693504-3ea7e9ad6fec?auto=format&fit=crop&w=1100&q=80" alt="Портрет Инны Матиссон" />
+            </figure>
+          </div>
         </div>
       </section>
 
-      <section class="container reveal">
-        <div class="split">
-          <article class="panel">
+      <section class="container section decision reveal">
+        <div class="split-gateway">
+          <article class="gateway-panel">
             <div>
               <h3>Мужчинам</h3>
-              <p>Ты состоялся в жизни: ответственность, решения, деньги. Но в отношениях тебя перестали уважать, а твоя позиция размыта.</p>
+              <p>Ты состоялся в жизни: ответственность, решения, деньги. Но в отношениях тебя перестали уважать.</p>
             </div>
-            <a class="btn" href="#contacts">Перейти →</a>
+            <a class="cta" href="#footer">ПЕРЕЙТИ →</a>
           </article>
-          <article class="panel">
+          <article class="gateway-panel">
             <div>
               <h3>Женщинам</h3>
               <p>Ты сильная и самостоятельная. Но рядом либо слабый мужчина, либо постоянное напряжение и борьба.</p>
             </div>
-            <a class="btn" href="#contacts">Перейти →</a>
+            <a class="cta" href="#footer">ПЕРЕЙТИ →</a>
           </article>
         </div>
       </section>
 
-      <section id="approach" class="container reveal">
-        <h2 class="block-title">Подход</h2>
+      <section id="approach" class="container section reveal">
+        <h2 class="section-title">Подход</h2>
         <div class="manifesto">
-          <div class="manifesto-item"><span>01</span><h3>Отношения — это система, а не эмоции</h3></div>
-          <div class="manifesto-item"><span>02</span><h3>Роль и поведение важнее намерений</h3></div>
-          <div class="manifesto-item"><span>03</span><h3>Советы не работают без смены конструкции</h3></div>
-          <div class="manifesto-item"><span>04</span><h3>Здесь не ищут виноватых — разбирают устройство</h3></div>
-          <div class="manifesto-item"><span>05</span><h3>Чувства важны, но они не чинят сломанные роли</h3></div>
+          <div class="manifesto-row"><span>01</span><h3>Отношения — это система, а не эмоции</h3></div>
+          <div class="manifesto-row"><span>02</span><h3>Роль и поведение важнее намерений</h3></div>
+          <div class="manifesto-row"><span>03</span><h3>Советы не работают без смены конструкции</h3></div>
+          <div class="manifesto-row"><span>04</span><h3>Здесь не ищут виноватых — разбирают устройство</h3></div>
+          <div class="manifesto-row"><span>05</span><h3>Чувства важны, но они не чинят сломанные роли</h3></div>
         </div>
       </section>
 
-      <section class="container reveal">
-        <h2 class="block-title">Об авторе</h2>
-        <p class="lead">Инна Матиссон — практикующий психолог с аналитическим подходом к отношениям.<br />Ты не слабый — ты просто не понимаешь, как это устроено.</p>
-        <div class="about-grid">
-          <div class="card">
-            <h4>Работает с конкретными ситуациями</h4>
-            <p>Кризисы брака и разводы<br />Утрата роли и уважения<br />Проблемы границ и поведения</p>
+      <section class="container section reveal">
+        <div class="author-grid">
+          <div class="author-visual">
+            <figure class="hero-image">
+              <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=1000&q=80" alt="Инна Матиссон" />
+            </figure>
           </div>
-          <div class="card">
-            <h4>Бэкграунд</h4>
-            <p>Опыт юриста и следователя<br />Фокус на причинах, а не симптомах</p>
+          <div class="author-copy">
+            <h2 class="section-title">Об авторе</h2>
+            <p class="lead">Инна Матиссон — практикующий психолог с аналитическим подходом к отношениям.</p>
+            <div class="subcards">
+              <article class="soft-card">
+                <h4>Работает с конкретными ситуациями</h4>
+                <ul>
+                  <li>Кризисы брака</li>
+                  <li>Потеря роли</li>
+                  <li>Проблемы границ</li>
+                </ul>
+              </article>
+              <article class="soft-card">
+                <h4>Бэкграунд</h4>
+                <ul>
+                  <li>Опыт юриста и следователя</li>
+                  <li>Фокус на причинах</li>
+                </ul>
+              </article>
+            </div>
           </div>
         </div>
       </section>
 
-      <section id="articles" class="container reveal">
-        <h2 class="block-title">Статьи</h2>
-        <div class="meta">03 материала</div>
-        <div class="media-grid">
-          <article class="media-card">01 — Женщина на продажу: цена и ценность</article>
-          <article class="media-card">02 — Как женщины на самом деле видят мужчину</article>
-          <article class="media-card">03 — Замужняя любовница: практическая инструкция</article>
+      <section id="materials" class="container section reveal">
+        <h2 class="section-title">Статьи</h2>
+        <div class="grid3">
+          <article class="editorial-card"><div class="idx">01</div><h3>Женщина на продажу: цена и ценность</h3></article>
+          <article class="editorial-card"><div class="idx">02</div><h3>Как женщины на самом деле видят мужчину</h3></article>
+          <article class="editorial-card"><div class="idx">03</div><h3>Замужняя любовница: практическая инструкция</h3></article>
         </div>
       </section>
 
-      <section class="container reveal">
-        <h2 class="block-title">Видео</h2>
-        <div class="meta">03 материала</div>
-        <div class="media-grid">
-          <article class="media-card">01 — Женское уважение к мужчине: откуда оно берётся</article>
-          <article class="media-card">02 — Почему «хороший мужчина» перестаёт быть мужчиной</article>
-          <article class="media-card">03 — Женский ТОП-клуб: как и зачем он работает</article>
+      <section class="container section reveal">
+        <h2 class="section-title">Видео</h2>
+        <div class="grid3">
+          <article class="editorial-card video-card">
+            <div class="idx">01</div>
+            <h3>Женское уважение к мужчине: откуда оно берётся</h3>
+            <div class="thumb"><div class="play">▶</div></div>
+          </article>
+          <article class="editorial-card video-card">
+            <div class="idx">02</div>
+            <h3>Почему «хороший мужчина» перестаёт быть мужчиной</h3>
+            <div class="thumb"><div class="play">▶</div></div>
+          </article>
+          <article class="editorial-card video-card">
+            <div class="idx">03</div>
+            <h3>Женский ТОП-клуб: как и зачем он работает</h3>
+            <div class="thumb"><div class="play">▶</div></div>
+          </article>
         </div>
       </section>
 
-      <section id="events" class="container reveal">
-        <h2 class="block-title">Мероприятия</h2>
-        <div class="meta">03 события</div>
-        <div class="timeline">
-          <div class="timeline-item"><strong>Прошло</strong>Офлайн-семинар Инны Матиссон — Москва</div>
-          <div class="timeline-item"><strong>Прошло</strong>Выезд ТОП-клуба — Казань</div>
-          <div class="timeline-item"><strong>Анонс</strong>Закрытая встреча участников — Санкт-Петербург</div>
+      <section id="events" class="container section reveal">
+        <h2 class="section-title">Мероприятия</h2>
+        <div class="events">
+          <div class="event-row"><div class="tag">Прошло</div><div>Офлайн-семинар Инны Матиссон — Москва</div></div>
+          <div class="event-row"><div class="tag">Прошло</div><div>Выезд ТОП-клуба — Казань</div></div>
+          <div class="event-row"><div class="tag">Анонс</div><div>Закрытая встреча участников — Санкт-Петербург</div></div>
         </div>
-      </section>
-
-      <section id="contacts" class="container reveal contacts">
-        <h2 class="block-title">Контакты</h2>
-        <p>Инна Матиссон в социальных сетях</p>
-        <p>
-          <a href="#">Telegram</a> · <a href="#">YouTube</a> · <a href="#">VK</a> · <a href="#">Дзен</a> · <a href="#">Rutube</a> · <a href="#">TikTok</a> · <a href="#">vc.ru</a>
-        </p>
-        <p>Для предложений и сотрудничества</p>
-        <p><a href="mailto:email@email.com">email@email.com</a></p>
       </section>
     </main>
 
-    <footer class="container">© 2026 Инна Матиссон</footer>
+    <footer id="footer" class="container">
+      <div class="label">Инна Матиссон в социальных сетях</div>
+      <div class="socials">
+        <a href="#">Telegram</a><a href="#">YouTube</a><a href="#">VK</a><a href="#">Дзен</a><a href="#">Rutube</a><a href="#">TikTok</a><a href="#">vc.ru</a>
+      </div>
+      <div class="label">Для предложений и сотрудничества</div>
+      <p class="email"><a href="mailto:email@email.com">email@email.com</a></p>
+      <div class="copyright">© 2026 Инна Матиссон</div>
+    </footer>
 
     <script>
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) entry.target.classList.add("visible");
-          });
-        },
-        { threshold: 0.12 }
-      );
+      const header = document.getElementById('header');
+      const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 10);
+      onScroll();
+      window.addEventListener('scroll', onScroll);
 
-      document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) entry.target.classList.add('visible');
+        });
+      }, { threshold: 0.14 });
+
+      document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
     </script>
   </body>
 </html>
